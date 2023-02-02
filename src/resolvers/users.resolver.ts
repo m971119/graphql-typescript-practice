@@ -26,7 +26,7 @@ export class userResolver extends UserRepository {
   })
   async createUser(@Arg('userData') userData: CreateUserDto): Promise<User> {
     const user: User = await this.userCreate(userData);
-    return user;
+    return await this.userFindById(user.id);
   }
 
   @Mutation(() => User, {
@@ -34,7 +34,7 @@ export class userResolver extends UserRepository {
   })
   async updateUser(@Arg('userId') userId: number, @Arg('userData') userData: CreateUserDto): Promise<User> {
     const user: User = await this.userUpdate(userId, userData);
-    return user;
+    return await this.userFindById(user.id);
   }
 
   @Mutation(() => User, {

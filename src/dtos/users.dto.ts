@@ -1,4 +1,4 @@
-import { IsEmail, IsString } from 'class-validator';
+import { IsEmail, IsInt, IsString } from 'class-validator';
 import { InputType, Field } from 'type-graphql';
 import { User } from '@typedefs/users.type';
 
@@ -11,4 +11,8 @@ export class CreateUserDto implements Partial<User> {
   @Field()
   @IsString()
   password: string;
+
+  @Field()
+  @IsInt()
+  companyId: number;
 }

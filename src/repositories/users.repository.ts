@@ -9,7 +9,9 @@ import { isEmpty } from '@utils/util';
 @EntityRepository()
 export default class UserRepository {
   public async userFindAll(): Promise<User[]> {
-    const users: User[] = await UserEntity.find();
+    const users: User[] = await UserEntity.find({
+      relations: ['company'],
+    });
 
     return users;
   }
@@ -17,7 +19,10 @@ export default class UserRepository {
   public async userFindById(userId: number): Promise<User> {
     if (isEmpty(userId)) throw new HttpException(400, 'UserId is empty');
 
-    const user: User = await UserEntity.findOne({ where: { id: userId } });
+    const user: User = await UserEntity.findOne({
+      where: { id: userId },
+      relations: ['company'],
+    });
     if (!user) throw new HttpException(409, "User doesn't exist");
 
     return user;
